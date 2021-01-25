@@ -1,3 +1,3 @@
 # test project
 
-test the git nightly tag advance
+The `nightly` tag advance demo. Recreates the tag if it's absent.
