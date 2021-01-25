@@ -13,7 +13,7 @@ jobs:
             github.git.deleteRef({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              ref: "refs/tags/nightly"
+              ref: "nightly"
             })
             github.git.createRef({
               owner: context.repo.owner,
