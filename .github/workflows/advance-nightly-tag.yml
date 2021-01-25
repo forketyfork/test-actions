@@ -8,14 +8,18 @@ jobs:
       - name: Advance nightly tag
         uses: actions/github-script@v3
         with:
-          github-token: ${{ github.token }}
+          github-token: ${{secrets.GITHUB_TOKEN}}          
           script: |
-            github.git.deleteRef({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              ref: "tags/nightly"
-            })
-            github.git.createRef({
+            try {
+                await github.git.deleteRef({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  ref: "tags/nightly"
+                })
+            } catch (e) {
+              console.log("The nightly tag doesn't exist yet: " + e)
+            }
+            await github.git.createRef({
               owner: context.repo.owner,
               repo: context.repo.repo,
               ref: "refs/tags/nightly",
