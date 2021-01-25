@@ -1,0 +1,22 @@
+name: "advance nightly tag"
+on:
+    push:
+jobs:
+    advanceNightlyTag:
+        steps:
+        - name: Advance nightly tag
+          uses: actions/github-script@v3
+          with:
+            github-token: ${{ github.token }}
+            script: |
+              github.git.deleteRef({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                ref: "refs/tags/nightly"
+              })
+              github.git.createRef({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                ref: "refs/tags/nightly",
+                sha: context.sha
+              })
